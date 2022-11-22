@@ -1,17 +1,17 @@
 const prompt = require("prompt-sync")({ sigint: true });
 const { time } = require("console");
-var fs = require("fs");
+const fs = require("fs");
 const { GetDocumentAddedTime, GetDocumentAdderPublicId, VerifyDocument, AddBook, certificateVerificationContract } = require("./contract_utils")
 const { UploadToIPFS, DownloadFromIPFS, Get_IPFSHASH } = require("./ipfs_utils");
-
+const IPFS = require("ipfs-core");
 function readFile(file_path) {
     return fs.readFileSync(file_path, "utf8");
 }
-async function AddBookAction(file_path) {
+async function AddBookAction(ipfs,file_path) {
     if (fs.existsSync(file_path)) {
         const data = readFile(file_path);
         //convert it to IPFS_HASH
-        const ipfs_hash = await UploadToIPFS(data)
+        const ipfs_hash = String(await UploadToIPFS(ipfs,data))
         const result = await VerifyDocument(ipfs_hash);
 
         if (result == true) {
@@ -22,16 +22,19 @@ async function AddBookAction(file_path) {
             const res = await AddBook(ipfs_hash);
             console.info("Result: " + res);
         }
+        
     } else {
         console.error("Error: file not found")
     }
 }
 
-async function VerifyBookAction(file_path) {
+async function VerifyBookAction(ipfs,file_path) {
     if (fs.existsSync(file_path)) {
         const data = readFile(file_path);
         //convert it to IPFS_HASH
-        const ipfs_hash = await Get_IPFSHASH(data);
+        console.log("--------------------------")
+        const ipfs_hash = String(await Get_IPFSHASH(ipfs,data));
+        
         const result = await VerifyDocument(ipfs_hash);
         console.log("ipfs_hash >>" , ipfs_hash);
 
@@ -43,12 +46,12 @@ async function VerifyBookAction(file_path) {
             const time_added = await GetDocumentAddedTime(ipfs_hash);
             const pub_key = await GetDocumentAdderPublicId(ipfs_hash);
             console.info("result : ", result, time_added, pub_key);
-            return time, pub_key
+            return
         }
     } else {
         console.error("Error: file not found");
     }
-    return null, null
+    return
 }
 
 async function DownloadBookAction(file_hash) {
@@ -77,25 +80,10 @@ function showLog(stage, mode) {
     }
 }
 async function main() {
-    certificateVerificationContract.on("AddedDocument", (ipfs_hash, id, timeAdded, event) => {
-        let info = {
-            ipfs_hash: ipfs_hash,
-            id: id,
-            timeAdded: timeAdded,
-            data: event,
-        };
-        console.log("here1", JSON.stringify(info, null, 4));
-    });
-    certificateVerificationContract.on("AddDocumentError", (ipfs_hash, error, event) => {
-        let info = {
-            ipfs_hash: ipfs_hash,
-            error: error,
-            data: event,
-        };
-        console.log("here" , JSON.stringify(info, null, 4));
-    });
+    const ipfs = await IPFS.create()
     var mode = 0
     while (true) {
+        console.log("--------------------------")
         console.log("welcome");
         showLog(1, mode);
         mode = prompt("Select Mode : ");
@@ -107,9 +95,9 @@ async function main() {
         const input_str = prompt("enter here: ");
         console.log("You entered >> ", input_str);
         if (mode == 1) {
-            await AddBookAction(input_str);
+            await AddBookAction(ipfs,input_str);
         } else if (mode == 2) {
-            await VerifyBookAction(input_str);
+            await VerifyBookAction(ipfs,input_str);
         } else if (mode == 3) {
             await DownloadBookAction(input_str);
         }

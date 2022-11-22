@@ -1,20 +1,17 @@
 // import * as IPFS from 'ipfs-core'
-var IPFS = require("ipfs-core");
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
-async function UploadToIPFS(file) {
-    //TODO:
-    const ipfs = await IPFS.create()
-    const option = {
-        "onlyHash": false
-    }
-    const { cid } = await ipfs.add(file, option);
-    return cid;
+async function UploadToIPFS(ipfs, file) {
+    const { cid } = await ipfs.add(file);
+    return String(cid);
 }
 async function httpGetAsync(url, callback) {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function () {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
             callback(xmlHttp.responseText);
+        }else{
+            console.error("error" , xmlHttp.status)
         }
     }
     xmlHttp.open("GET", url, true);
@@ -93,7 +90,7 @@ function getExtension(mimetype) {
 }
 async function DownloadFromIPFS(ipfs_hash) {
     //https://ipfs.io/ipfs/
-    await httpGetAsync("https://ipfs.io/ipfs/" + ipfs_hash, async function (filebuffer) {
+     httpGetAsync("https://ipfs.io/ipfs/" + ipfs_hash, async function (filebuffer) {
         var stringval = filebuffer.toString();
         console.log("stringval ", stringval);
         let encodedString = stringval.split(',')[1];
@@ -113,13 +110,12 @@ async function DownloadFromIPFS(ipfs_hash) {
         fs.writeFile(filename, buffer, () => console.log('file saved!'));
     });
 }
-async function Get_IPFSHASH(file) {
-    const ipfs = await IPFS.create()
+async function Get_IPFSHASH(ipfs,file) {
     const option = {
         "onlyHash": true
     }
     const { cid } = await ipfs.add(file, option);
-    return cid;
+    return String(cid);
 }
 
 

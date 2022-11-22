@@ -2,8 +2,8 @@ async function main() {
   const CertificateVerification = await ethers.getContractFactory("CertificateVerification");
 
   // Start deployment, returning a promise that resolves to a contract object
-  const certificate_verification = await CertificateVerification.deploy();
-  console.log("Contract deployed to address:", certificate_verification.address);
+  // const certificate_verification = await CertificateVerification.deploy();
+  // console.log("Contract deployed to address:", certificate_verification.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
