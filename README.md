@@ -19,3 +19,5 @@
 - <b>scripts/contract_utils.js</b>: Contract initialization code
 - <b>scripts/deploy.js</b>: Contract deploy code
 - <b>scripts/interact.js</b>: Contains interaction code with contract and IPFS functionalities
+
+- check contract on <a href="https://goerli.etherscan.io/address/0x4cc08B112Abe99d692e7Fd535035B283CD4cF6Bb">etherscan</a>
