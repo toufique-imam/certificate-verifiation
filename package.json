@@ -15,8 +15,9 @@
   },
   "dependencies": {
     "dotenv": "^16.0.3",
+    "file-type": "^16.5.4",
     "ipfs-core": "^0.14.3",
-    "prompt-sync": "^4.2.0",
-    "xmlhttprequest": "^1.8.0"
+    "it-to-stream": "^1.0.0",
+    "prompt-sync": "^4.2.0"
   }
 }

@@ -1,4 +1,4 @@
-const { certificateVerificationContract } = require("./contract_utils")
+const { certificateVerificationContract } = require("../contract_utils")
 
 async function main() {
     certificateVerificationContract.on("AddedDocument", (ipfs_hash, id, timeAdded, event) => {

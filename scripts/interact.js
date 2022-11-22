@@ -1,8 +1,7 @@
 const prompt = require("prompt-sync")({ sigint: true });
-const { time } = require("console");
 const fs = require("fs");
-const { GetDocumentAddedTime, GetDocumentAdderPublicId, VerifyDocument, AddBook, certificateVerificationContract } = require("./contract_utils")
-const { UploadToIPFS, DownloadFromIPFS, Get_IPFSHASH } = require("./ipfs_utils");
+const { GetDocumentAddedTime, GetDocumentAdderPublicId, VerifyDocument, AddBook } = require("./contract_utils")
+const { UploadToIPFS, DownloadFromIPFS, Get_IPFSHASH } = require("./utils/ipfs_utils");
 const IPFS = require("ipfs-core");
 function readFile(file_path) {
     return fs.readFileSync(file_path, "utf8");
@@ -54,8 +53,8 @@ async function VerifyBookAction(ipfs,file_path) {
     return
 }
 
-async function DownloadBookAction(file_hash) {
-    await DownloadFromIPFS(file_hash)
+async function DownloadBookAction(ipfs,file_hash) {
+    await DownloadFromIPFS(ipfs,file_hash)
 }
 
 function showLog(stage, mode) {
@@ -99,7 +98,7 @@ async function main() {
         } else if (mode == 2) {
             await VerifyBookAction(ipfs,input_str);
         } else if (mode == 3) {
-            await DownloadBookAction(input_str);
+            await DownloadBookAction(ipfs,input_str);
         }
     }
     console.log("Exited");
