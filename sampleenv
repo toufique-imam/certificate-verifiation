@@ -1,0 +1,4 @@
+API_URL = "your api url from alchemy"
+API_KEY = "your api key from alchemy"
+PRIVATE_KEY = "your PRIVATE_KEY from metamask"
+CONTRACT_ADDRESS = "0x4cc08B112Abe99d692e7Fd535035B283CD4cF6Bb"
