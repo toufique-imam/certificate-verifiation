@@ -1,5 +1,6 @@
 # Certificate verification
-
+- fun project to create certificate verification system while learning new ethereum stack 
+- followed instruction of <a href="https://www.web3.university/tracks/create-a-smart-contract/deploy-your-first-smart-contract">web3.university's tutorial blog series</a>
 ## Setup
 - Follow <a href="https://www.web3.university/tracks/create-a-smart-contract/deploy-your-first-smart-contract">this instruction</a> for setup
 - That instruction will show you how to setup the `Alchemy` and `Metamask`
