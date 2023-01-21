@@ -4,9 +4,9 @@
 [Iftekher Toufique Imam](https://github.com/toufique-imam)
 ---
 
-[![GitHub Stars](https://img.shields.io/github/stars/toufique-imam//certificate-verifiation?style=social)](https://github.com/toufique-imam//certificate-verifiation)
-[![download](https://img.shields.io/github/downloads/toufique-imam//certificate-verifiation/total.svg)](https://github.com/toufique-imam//certificate-verifiation)
-![visitors](https://visitor-badge.glitch.me/badge?page_id=toufique-imam//certificate-verifiation)
+[![GitHub Stars](https://img.shields.io/github/stars/toufique-imam/certificate-verifiation?style=social)](https://github.com/toufique-imam/certificate-verifiation)
+[![download](https://img.shields.io/github/downloads/toufique-imam/certificate-verifiation/total.svg)](https://github.com/toufique-imam/certificate-verifiation)
+![visitors](https://visitor-badge.glitch.me/badge?page_id=toufique-imam/certificate-verifiation)
 ## Setup
 - Follow <a href="https://www.web3.university/tracks/create-a-smart-contract/deploy-your-first-smart-contract">this instruction</a> for setup
 - That instruction will show you how to setup the `Alchemy` and `Metamask`
